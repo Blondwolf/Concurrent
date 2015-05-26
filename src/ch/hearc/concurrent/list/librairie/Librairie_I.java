@@ -12,7 +12,7 @@ public interface Librairie_I
 	\*------------------------------------------------------------------*/
 
 	public Set<Book> getBooks();
-	public int getBookCount();
+	public int getBookCount(Book book);
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|

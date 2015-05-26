@@ -2,6 +2,7 @@
 package ch.hearc.concurrent.list.librairie;
 
 import java.awt.print.Book;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LibrairieThreadSafe implements Librairie_I
@@ -23,6 +24,14 @@ public class LibrairieThreadSafe implements Librairie_I
 	|*				Get				*|
 	\*------------------------------*/
 
+	public Set<Book> getBooks() {
+		return mapBooksCounts.keySet();
+	}
+	
+	public int getBookCount(Book book) {
+		return mapBooksCounts.get(book).intValue();
+	}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -30,6 +39,6 @@ public class LibrairieThreadSafe implements Librairie_I
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	ConcurrentHashMap<Book, Integer> mapBooksCounts;
+	private ConcurrentHashMap<Book, Integer> mapBooksCounts;
 
 	}
