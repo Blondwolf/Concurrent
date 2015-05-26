@@ -26,6 +26,9 @@ public class LibrairieNormal implements Librairie_I
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
+	/*------------------------------*\
+	|*				Get				*|
+	\*------------------------------*/
 
 	public Set<String> getBooks() {
 		return booksCount.keySet();
@@ -35,9 +38,14 @@ public class LibrairieNormal implements Librairie_I
 		return booksCount.get(book).intValue();
 	}
 
-	/*------------------------------*\
-	|*				Get				*|
-	\*------------------------------*/
+	public String getBook(String book) {
+		addBook(book, -1);
+		if(booksCount.get(book) == 0){
+			booksCount.remove(book);
+		}
+		return book;
+	}
+
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -47,6 +55,5 @@ public class LibrairieNormal implements Librairie_I
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	private HashMap<String, Integer> booksCount;
-
 	}
 

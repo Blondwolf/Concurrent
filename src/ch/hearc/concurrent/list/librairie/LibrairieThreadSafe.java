@@ -31,6 +31,14 @@ public class LibrairieThreadSafe implements Librairie_I
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+	
+	public String getBook(String book) {
+		addBook(book, -1);
+		if(booksCount.get(book) == 0){
+			booksCount.remove(book);
+		}
+		return book;
+	}
 
 	public Set<String> getBooks() {
 		return booksCount.keySet();
@@ -48,5 +56,6 @@ public class LibrairieThreadSafe implements Librairie_I
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	private ConcurrentHashMap<String, Integer> booksCount;
+
 
 	}
