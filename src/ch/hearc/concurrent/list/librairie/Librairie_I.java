@@ -1,6 +1,9 @@
 
 package ch.hearc.concurrent.list.librairie;
 
+import java.awt.print.Book;
+import java.util.Set;
+
 public interface Librairie_I
 	{
 
@@ -8,8 +11,8 @@ public interface Librairie_I
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-	Set<> getBooks();
-	getBookCount;
+	public Set<Book> getBooks();
+	public int getBookCount();
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|

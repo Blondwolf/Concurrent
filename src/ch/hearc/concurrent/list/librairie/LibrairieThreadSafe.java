@@ -1,6 +1,9 @@
 
 package ch.hearc.concurrent.list.librairie;
 
+import java.awt.print.Book;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class LibrairieThreadSafe implements Librairie_I
 	{
 
@@ -27,4 +30,6 @@ public class LibrairieThreadSafe implements Librairie_I
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
+	ConcurrentHashMap<Book, Integer> mapBooksCounts;
+
 	}
