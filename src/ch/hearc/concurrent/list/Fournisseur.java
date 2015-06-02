@@ -1,19 +1,23 @@
 
 package ch.hearc.concurrent.list;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import ch.hearc.concurrent.list.librairie.Librairie_I;
+import ch.hearc.concurrent.list.librairie.Librairie_A;
+import ch.hearc.concurrent.list.tools.Tools;
 
-public class Fournisseur implements Runnable
+public class Fournisseur extends Person implements Runnable
 	{
 
-	public Fournisseur(Librairie_I lib)
+	public Fournisseur(Librairie_A lib, int speedSecMin, int speedSecMax)
 		{
-		this.lib = lib;
+		super(lib, speedSecMin, speedSecMax);
 
+		books = new ArrayList<String>();
 		books.add("La belle et la bête");
 		books.add("Le chaperon rouge");
+		books.add("La belle au bois dormant");
 		}
 
 	@Override
@@ -21,12 +25,17 @@ public class Fournisseur implements Runnable
 		{
 		while(true)
 			{
-			//get a random book from internal list
-			//add this book in lib
-			//show book name
+			//Wait from 1 to 10 sec
+			Tools.sleep(Tools.randInt(speedSecMin * 1000, speedSecMax * 1000));
+
+			//Get a random book from internal list
+			String randomBook = books.get(Tools.randInt(0, books.size() - 1));
+
+			//Add this book in lib, between 1 and 5 of same book
+			int randomNumberBook = Tools.randInt(1, 5);
+			lib.addBook(randomBook, randomNumberBook);
 			}
 		}
 
-	private Librairie_I lib;
-	private List<String> books;//les livres que le fournisseur peut donner
+	private List<String> books;//Books that the fournisseur can give
 	}

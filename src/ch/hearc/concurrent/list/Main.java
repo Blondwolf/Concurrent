@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import ch.hearc.concurrent.list.librairie.LibrairieNormal;
 import ch.hearc.concurrent.list.librairie.LibrairieThreadSafe;
-import ch.hearc.concurrent.list.librairie.Librairie_I;
+import ch.hearc.concurrent.list.librairie.Librairie_A;
 
 public class Main
 	{
@@ -23,6 +23,10 @@ public class Main
 		startActors();
 		}
 
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+
 	private static int askMode()
 		{
 		JFrame frame = new JFrame("Fenêtre principal non visible");
@@ -33,7 +37,7 @@ public class Main
 
 	private static void init(int mode)
 		{
-		Librairie_I lib;
+		Librairie_A lib;
 
 		if (mode == 0)
 			{
@@ -46,8 +50,8 @@ public class Main
 
 		listThreads = new ArrayList<Thread>();
 
-		listThreads.add(new Thread(new Client(lib)));
-		listThreads.add(new Thread(new Fournisseur(lib)));
+		listThreads.add(new Thread(new Client(lib, 1, 2)));
+		listThreads.add(new Thread(new Fournisseur(lib, 10, 20)));
 		}
 
 	private static void startActors()

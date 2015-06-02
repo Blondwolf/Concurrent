@@ -4,49 +4,66 @@ package ch.hearc.concurrent.list.librairie;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LibrairieThreadSafe implements Librairie_I
+public class LibrairieThreadSafe extends Librairie_A
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
-	public LibrairieThreadSafe(){
+	public LibrairieThreadSafe()
+		{
+		super();
 		this.booksCount = new ConcurrentHashMap<String, Integer>();
-	}
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-	
-	public void addBook(String book, int value){
-		int count = this.booksCount.get(book);
-		this.booksCount.replace(book, count + value);
-	}
+
+	@Override
+	public void addBookChild(String book, int value)
+		{
+		if (booksCount.containsKey(book))
+			{
+			int count = booksCount.get(book);
+			booksCount.replace(book, count + value);
+			}
+		else
+			{
+			booksCount.put(book, value);
+			}
+		}
 
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
-	
 
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
-	
-	public String getBook(String book) {
-		addBook(book, -1);
-		if(booksCount.get(book) == 0){
-			booksCount.remove(book);
-		}
-		return book;
-	}
 
-	public Set<String> getBooks() {
+	@Override
+	public String getBookChild(String book)
+		{
+		addBookChild(book, -1);
+		if (booksCount.get(book) == 0)
+			{
+			booksCount.remove(book);
+			}
+		return book;
+		}
+
+	@Override
+	public Set<String> getBookListChild()
+		{
 		return booksCount.keySet();
-	}
-	
-	public int getBookCount(String book) {
+		}
+
+	@Override
+	public int getBookCount(String book)
+		{
 		return booksCount.get(book).intValue();
-	}
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -56,6 +73,5 @@ public class LibrairieThreadSafe implements Librairie_I
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	private ConcurrentHashMap<String, Integer> booksCount;
-
 
 	}
