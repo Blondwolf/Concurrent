@@ -2,7 +2,6 @@
 package ch.hearc.concurrent.linkedtransferlist;
 
 import java.util.concurrent.LinkedTransferQueue;
-import java.util.concurrent.TimeUnit;
 
 import ch.hearc.concurrent.tools.Tools;
 
@@ -22,20 +21,20 @@ public class Poste implements Runnable
 		while(true)
 			{
 			StringBuilder builder = new StringBuilder();
-			builder.append(toString());
 			builder.append("Traitement de poste " + ville + " :");
 			Colis colis;
-			try
-				{
-				colis = transfer.take(); 				//Recupération du premier objet de la queue
-				Tools.sleep(tempsTraitementSec * 1000); //Temps de traitement 10 sec
+//			try
+//				{
+			Tools.sleep(tempsTraitementSec * 1000); //Temps de traitement 10 sec
+				colis = transfer.poll(); 				//Recupération du premier objet de la queue
+
 
 				if (colis != null)
 					{
 					if (colis.getVille().equals(ville)) //Arrivé a destination
 						{
 						//transfer.take();
-						builder.append("Le colis est arrivée à destination: " + ville);
+						builder.append("Le colis est arrivée à destination");
 						}
 					else								//Envoi au prochain élément
 						{
@@ -47,12 +46,12 @@ public class Poste implements Runnable
 					{
 					builder.append("Aucun colis pour " + ville);
 					}
-				}
-			catch (InterruptedException e)
-				{
-				System.out.println("Erreur");
-				e.printStackTrace();
-				}
+//				}
+//			catch (InterruptedException e)
+//				{
+//				System.out.println("Erreur");
+//				e.printStackTrace();
+//				}
 
 			System.out.println(builder.toString());
 			}
@@ -69,6 +68,8 @@ public class Poste implements Runnable
 			{
 			builder.append(colis.getVille());
 			}
+		builder.append("\nRestant :" + transfer.getWaitingConsumerCount());
+		builder.append("\n");
 		return builder.toString();
 		}
 
@@ -80,7 +81,9 @@ public class Poste implements Runnable
 	public void send(Colis cls)
 		{
 		//Reception
-		transfer.offer(cls, 5 * 1000, TimeUnit.MILLISECONDS); //Temps d'atente de transfert
+		transfer.put(cls);//, 5 * 1000, TimeUnit.MILLISECONDS); //Temps d'atente de transfert
+		System.out.println("Réception chez "+ville+":\n");
+		System.out.println(toString());
 		}
 
 	private LinkedTransferQueue<Colis> transfer;

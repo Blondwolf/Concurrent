@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import ch.hearc.concurrent.hashconcurrentmap.librairie.LibrairieNormal;
 import ch.hearc.concurrent.hashconcurrentmap.librairie.LibrairieThreadSafe;
 import ch.hearc.concurrent.hashconcurrentmap.librairie.Librairie_A;
 
@@ -18,8 +17,8 @@ public class Main
 
 	public static void main(String[] args)
 		{
-		int mode = askMode();
-		init(mode);
+		//int mode = askMode();
+		init(1);
 		startActors();
 		}
 
@@ -38,15 +37,7 @@ public class Main
 	private static void init(int mode)
 		{
 		Librairie_A lib;
-
-		if (mode == 0)
-			{
-			lib = new LibrairieNormal();
-			}
-		else
-			{
-			lib = new LibrairieThreadSafe();
-			}
+		lib = new LibrairieThreadSafe();
 
 		listThreads = new ArrayList<Thread>();
 

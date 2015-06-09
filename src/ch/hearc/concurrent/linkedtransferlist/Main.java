@@ -18,15 +18,18 @@ public class Main
 
 		for(int i = 0; i < destinations.length; i++)
 			{
-			postes.add(new Poste(destinations[i], i));
+			postes.add(new Poste(destinations[i], i+1));
 			}
 
 		//Liaisons des postes et lancement
 		for(int i = 0; i < postes.size() - 1; i++)
 			{
 			postes.get(i).setNextChain(postes.get(i + 1));
+			}
 
-			Thread thread = new Thread(postes.get(i));
+		for(Poste post:postes)
+			{
+			Thread thread = new Thread(post);
 			threadPostes.add(thread);
 			thread.start();
 			}
@@ -46,10 +49,10 @@ public class Main
 							{
 							//Génération du colis
 							//int index = Tools.randInt(0, destinations.length - 1);
-							Colis colis = new Colis(destinations[destinations.length - 1]); //Tjr vers dernier
+							Colis colis = new Colis("France"); //Tjr vers dernier
 
 							//Envoi du colis vers premier
-							System.out.println("Envoi du colis pour: " + colis.getVille());
+							System.out.println("*Nouveau colis pour: " + colis.getVille());
 							postes.get(0).send(colis);
 
 							//Patiente et affiche
